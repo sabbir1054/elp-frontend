@@ -1,0 +1,7 @@
+.home_wrapper{
+background-image: url("/img/background.png");
+height: 100vh;
+background-position: top;
+background-repeat: no-repeat;
+background-size: cover;
+}

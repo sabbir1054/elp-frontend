@@ -1,0 +1,12 @@
+.navBar_bg{
+    background-color: rgba(0, 0, 0, 0.267);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.425);
+}
+
+.navBar_text{
+    transition: all 0.1s ease-in;
+}
+
+.navBar_text:hover{
+    border-bottom: 2px solid white ;
+}
