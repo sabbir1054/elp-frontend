@@ -1,75 +1,132 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
 const TeacherRegister = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
+   const [match, setMatch] = useState(true);
+   const {
+     register,
+     handleSubmit,
+     watch,
+     formState: { errors },
+   } = useForm();
+   const onSubmit = (data) => {
+     if (data.password !== data.confirmPass) {
+       setMatch(false);
+     } else {
+       console.log(data);
+     }
+   };
   return (
     <Container>
       <h3 className="text-white text-start">Teachers Registration</h3>
 
       <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Role of register person */}
         <input
           defaultValue={"teacher"}
           {...register("role")}
           className="d-none"
         />
+        {/* Name of register person */}
         <label htmlFor="name" className="text-white">
-          {" "}
-          Name:{" "}
-        </label>{" "}
+          Name:
+        </label>
         <br />
         <input
           placeholder="Name"
           {...register("name", { required: true })}
           className=" w-25 p-2 rounded "
-        />{" "}
-        <br /> <br />
+        />
+        <br />{" "}
+        {errors.name && (
+          <span className="text-danger">This field is required</span>
+        )}{" "}
+        <br />
+        {/* Email of register person */}
         <label htmlFor="name" className="text-white">
-          {" "}
-          Email:{" "}
-        </label>{" "}
+          Email:
+        </label>
         <br />
         <input
           placeholder="Email"
           {...register("email", { required: true })}
           className=" w-25 p-2 rounded "
-        />{" "}
-        <br /> <br />
-        <label htmlFor="name" className="text-white">
-          {" "}
-          Level:{" "}
-        </label>{" "}
+        />
+        <br />{" "}
+        {errors.email && (
+          <span className="text-danger">This field is required</span>
+        )}{" "}
         <br />
-        <select {...register("LEVEL")} className=" w-25 p-2 rounded ">
-          <option value="female">Primary Level {`(class: One - Five)`}</option>
-          <option value="male">
+        {/* Level of register person */}
+        <label htmlFor="name" className="text-white">
+          Level:
+        </label>
+        <br />
+        <select {...register("level")} className=" w-25 p-2 rounded ">
+          <option value="Primary Level">
+            Primary Level {`(class: One - Five)`}
+          </option>
+          <option value="Secondary Level">
             Secondary Level {`(class: Six - Ten (SSC))`}
           </option>
-          <option value="other">
+          <option value="Higher Level">
             Higher Level {`(class: HSC 1st Year - HSC 2nd Year)  `}
           </option>
-        </select>{" "}
-        <br /> <br />
-        <label htmlFor="name" className="text-white">
-          {" "}
-          Subject:{" "}
-        </label>{" "}
+        </select>
+        <br />{" "}
+        {errors.level && (
+          <span className="text-danger">This field is required</span>
+        )}
+        <br />
+        {/* Subject of teacher */}
+        <label className="text-white">Subject:</label>
         <br />
         <input
           placeholder="Subject"
-          {...register("Subject", { required: true })}
+          {...register("subject", { required: true })}
           className=" w-25 p-2 rounded "
         />{" "}
-        <br /> <br />
-        {errors.exampleRequired && <span>This field is required</span>}
-        <input type="submit" className="btn btn-warning text-dark" />
+        <br />{" "}
+        {errors.subject && (
+          <span className="text-danger">This field is required</span>
+        )}
+        <br />
+        <label htmlFor="name" className="text-white">
+          Password:
+        </label>
+        <br />
+        <input
+          placeholder="Password"
+          {...register("password", { required: true })}
+          className=" w-25 p-2 rounded "
+        />{" "}
+        <br />
+        {errors.password && (
+          <span className="text-danger">This field is required</span>
+        )}{" "}
+        <br />
+        <label htmlFor="confirmPass" className="text-white">
+          Confirm Password:
+        </label>
+        <br />
+        <input
+          placeholder="Confirm Password"
+          {...register("confirmPass", { required: true })}
+          className=" w-25 p-2 rounded "
+        />{" "}
+        <br />
+        {errors.confirmPass && (
+          <span className="text-danger">This field is required</span>
+        )}
+        {match ? "" : <span className="text-danger">Password not matched</span>}
+        <br />
+        <br />
+        <input
+          type="submit"
+          value="Register"
+          className="btn btn-warning text-dark"
+        />
       </form>
     </Container>
   );

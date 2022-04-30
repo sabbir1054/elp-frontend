@@ -7,19 +7,7 @@ const Register = () => {
     const [isTeacher, setIsTeacher] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
   
-//   const handleButton = (role) => {
-// if (role==='student') {
-//   isStudent(true);
-// } else if(role==='teacher') {
-//   isTeacher(true);
-// }
 
-//     document.getElementById('teacher').style.display = "none";
-//     document.getElementById('student').style.display = "none";
-// }
-//   const handleStudentButton = () => {
-//     isStudent(false);
-// }
 
   return (
     <div className={style.register_wrap_bg}>
@@ -47,6 +35,7 @@ const Register = () => {
         </div>
       </div>
 
+    
       {
         isTeacher? <TeacherRegister/>:<div></div>
      }
