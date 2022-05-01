@@ -116,6 +116,7 @@ sendEmailVerification(auth.currentUser).then(() => {
         </label>
         <br />
         <input
+          type='password'
           placeholder="Password"
           {...register("password", { required: true })}
           className=" w-25 p-2 rounded "
@@ -130,6 +131,7 @@ sendEmailVerification(auth.currentUser).then(() => {
         </label>
         <br />
         <input
+          type='password'
           placeholder="Confirm Password"
           {...register("confirmPass", { required: true })}
           className=" w-25 p-2 rounded "

@@ -98,6 +98,7 @@ const [createUserWithEmailAndPassword, user, loading, error] =
         </label>
         <br />
         <input
+          type='password'
           placeholder="Password"
           {...register("password", { required: true })}
           className=" w-25 p-2 rounded "
@@ -109,6 +110,7 @@ const [createUserWithEmailAndPassword, user, loading, error] =
         </label>
         <br />
         <input
+          type='password'
           placeholder="Confirm Password"
           {...register("confirmPass", { required: true })}
           className=" w-25 p-2 rounded "
