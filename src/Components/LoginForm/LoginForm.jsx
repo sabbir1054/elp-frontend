@@ -1,16 +1,18 @@
-import React from 'react';
-import { Placeholder } from 'react-bootstrap';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import auth from '../../Firebase/Firebase.init';
+import React from "react";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import auth from "../../Firebase/Firebase.init";
 
 const LoginForm = () => {
-const [signInWithEmailAndPassword, user, loading, error] =
-  useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  //router
 
-
-
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location);
+   
   const {
     register,
     handleSubmit,
@@ -18,19 +20,20 @@ const [signInWithEmailAndPassword, user, loading, error] =
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data.email);
-    console.log(data.password);
-    signInWithEmailAndPassword(data.email, data.password).then(
+    
+    // console.log(data.email);
+    // console.log(data.password);
+    signInWithEmailAndPassword(data.email, data.password)
+      .then(() => {
+         let from = location.state.from.pathname || "/";
+         navigate(from, { replace: true })
       
-    )
+    });
   };
-user?console.log(user.user):console.log(error)
-  
+  // user ? console.log(user.user) : console.log(error);
+
   return (
     <>
-      
-
-      
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           placeholder="email"
@@ -39,7 +42,7 @@ user?console.log(user.user):console.log(error)
         />{" "}
         <br />
         <input
-          type='password'
+          type="password"
           placeholder="password"
           {...register("password", { required: true })}
           className="mt-2 rounded w-50 p-2"
@@ -56,6 +59,6 @@ user?console.log(user.user):console.log(error)
       </Link>
     </>
   );
-};;
+};
 
 export default LoginForm;
