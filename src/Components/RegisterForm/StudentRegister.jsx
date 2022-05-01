@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-
+import auth from "../../Firebase/Firebase.init";
+import { sendEmailVerification } from "firebase/auth";
 const StudentRegister = () => {
+const [createUserWithEmailAndPassword, user, loading, error] =
+  useCreateUserWithEmailAndPassword(auth);
     const [match, setMatch] = useState(true);
   const {
     register,
@@ -14,6 +18,15 @@ const StudentRegister = () => {
         if (data.password !== data.confirmPass) {
             setMatch(false);
         } else {
+          createUserWithEmailAndPassword(data.email, data.password);
+                createUserWithEmailAndPassword(data.email, data.password).then(
+                  console.log(auth.currentUser)
+                );
+
+                sendEmailVerification(auth.currentUser).then(() => {
+                  // Email verification sent!
+                  // ...
+                });
             console.log(data);
         }
     };

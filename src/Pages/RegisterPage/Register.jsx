@@ -2,8 +2,12 @@ import { render } from "@testing-library/react";
 import React, { useState } from "react";
 import StudentRegister from "../../Components/RegisterForm/StudentRegister";
 import TeacherRegister from "../../Components/RegisterForm/TeacherRegister";
+import auth from "../../Firebase/Firebase.init";
 import style from "./Register.module.css";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 const Register = () => {
+  
+  
     const [isTeacher, setIsTeacher] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
   
@@ -35,14 +39,16 @@ const Register = () => {
         </div>
       </div>
 
-    
-      {
-        isTeacher? <TeacherRegister/>:<div></div>
-     }
-      {
-        isStudent? <StudentRegister/>:<div></div>
-     }
-      
+      {isTeacher ? (
+        <TeacherRegister  />
+      ) : (
+        <div></div>
+      )}
+      {isStudent ? (
+        <StudentRegister  />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

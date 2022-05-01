@@ -1,22 +1,41 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSendEmailVerification,
+} from "react-firebase-hooks/auth";
+import {sendEmailVerification } from "firebase/auth";
+
 import { useForm } from "react-hook-form";
+import auth from "../../Firebase/Firebase.init";
 
 const TeacherRegister = () => {
-   const [match, setMatch] = useState(true);
-   const {
-     register,
-     handleSubmit,
-     watch,
-     formState: { errors },
-   } = useForm();
-   const onSubmit = (data) => {
-     if (data.password !== data.confirmPass) {
-       setMatch(false);
-     } else {
-       console.log(data);
-     }
-   };
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+ 
+
+  const [match, setMatch] = useState(true);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    if (data.password !== data.confirmPass) {
+      setMatch(false);
+    } else {
+      createUserWithEmailAndPassword(data.email, data.password).then(console.log(auth.currentUser));
+     
+sendEmailVerification(auth.currentUser).then(() => {
+  // Email verification sent!
+
+  // ...
+});
+
+      console.log(data);
+    }
+  };
   return (
     <Container>
       <h3 className="text-white text-start">Teachers Registration</h3>
