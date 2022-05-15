@@ -11,7 +11,7 @@ const LoginForm = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location);
+  const from = location?.state?.from?.pathname || '/';
    
   const {
     register,
@@ -19,15 +19,15 @@ const LoginForm = () => {
     watch,
     formState: { errors },
   } = useForm();
+
+
   const onSubmit = (data) => {
-    
-    // console.log(data.email);
-    // console.log(data.password);
+      
     signInWithEmailAndPassword(data.email, data.password)
       .then(() => {
-         let from = location.state.from.pathname || "/";
-         navigate(from, { replace: true })
-      
+       
+
+        
     });
   };
   // user ? console.log(user.user) : console.log(error);
@@ -50,7 +50,7 @@ const LoginForm = () => {
         <br />
         {/* errors will return when field validation fails  */}
         {errors.password && <span>This field is required</span>}
-        <input type="submit" className="btn btn-warning mt-2" />
+        <input type="submit" value='Submit' className="btn btn-warning mt-2" />
       </form>
       <p className="text-white mt-3"> - or -</p>
 
